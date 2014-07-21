@@ -15,31 +15,35 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 "Plugin 'scrooloose/nerdtree.git'
 Plugin 'Xuyuanp/git-nerdtree'
-Plugin 'stephpy/vim-phpdoc'
-Plugin 'scrooloose/syntastic.git'
-Plugin 'scrooloose/nerdcommenter.git'
-"Plugin 'kien/ctrlp.vim.git'
+Plugin 'widox/vim-buffer-explorer-plugin'
+
 Plugin 'altercation/vim-colors-solarized.git'
+
+" syntax plugins
+Plugin 'stephpy/vim-phpdoc'
+Plugin 'stephpy/vim-php-cs-fixer'
+
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'pekepeke/titanium-vim'
+
+Plugin 'mattn/emmet-vim'
+Plugin 'scrooloose/syntastic.git'
+
+Plugin 'ap/vim-css-color'
+
+Plugin 'matze/vim-move'
+Plugin 'scrooloose/nerdcommenter.git'
 Plugin 'mileszs/ack.vim'
 "Plugin 'majutsushi/tagbar'
 Plugin 'gregsexton/MatchTag'
-"Plugin 'mhinz/vim-startify'
 Plugin 'henrik/vim-indexed-search'
-Plugin 'ap/vim-css-color'
-Plugin 'matze/vim-move'
 Plugin 'kshenoy/vim-signature'
-Plugin 'stephpy/vim-php-cs-fixer'
-Plugin 'widox/vim-buffer-explorer-plugin'
-Plugin 'mattn/emmet-vim'
 Plugin 'sk1418/HowMuch'
 Plugin 'bling/vim-airline'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'pekepeke/titanium-vim'
 
 " vim-scripts repos
 Plugin 'AutoComplPop'
 Plugin 'SearchComplete'
-"Plugin 'phpfolding.vim'
 Plugin 'ShowMarks'
 Plugin 'CmdlineComplete'
 Plugin 'Conque-Shell'
