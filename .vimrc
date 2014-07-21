@@ -22,14 +22,21 @@ Plugin 'altercation/vim-colors-solarized.git'
 " syntax plugins
 Plugin 'stephpy/vim-phpdoc'
 Plugin 'stephpy/vim-php-cs-fixer'
+Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'm2mdas/phpcomplete-extended'
 
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pekepeke/titanium-vim'
+Plugin 'pangloss/vim-javascript'
 
 Plugin 'mattn/emmet-vim'
 Plugin 'scrooloose/syntastic.git'
 
+Plugin 'othree/html5.vim'
+
 Plugin 'ap/vim-css-color'
+"Plugin 'JulesWang/css.vim' // only necessary if your Vim version < 7.4
+Plugin 'cakebaker/scss-syntax.vim'
 
 Plugin 'matze/vim-move'
 Plugin 'scrooloose/nerdcommenter.git'
