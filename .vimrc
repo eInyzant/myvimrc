@@ -28,6 +28,7 @@ Plugin 'm2mdas/phpcomplete-extended'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pekepeke/titanium-vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'burnettk/vim-angular'
 
 Plugin 'mattn/emmet-vim'
 Plugin 'scrooloose/syntastic.git'
@@ -296,7 +297,7 @@ Plugin 'Conque-Shell'
     " }
 
     " Javascript libraries syntax {
-        let g:used_javascript_libs = 'jquery,angularjs'
+        let g:used_javascript_libs = 'jquery,angularjs,angularui'
     " }
 " }
 
