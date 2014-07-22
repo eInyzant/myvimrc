@@ -1,12 +1,13 @@
-set nocompatible               " be iMproved
-filetype off                   " required!
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required!
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 " My Plugins here:
 "
@@ -60,6 +61,7 @@ Plugin 'Conque-Shell'
 "Plugin 'git://git.wincent.com/command-t.git'
 " ...
 
+ call vundle#end()            " required
  filetype plugin indent on     " required!
  "
  " Brief help
