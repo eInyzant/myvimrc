@@ -24,7 +24,6 @@ Plugin 'altercation/vim-colors-solarized.git'
 Plugin 'stephpy/vim-phpdoc'
 Plugin 'stephpy/vim-php-cs-fixer'
 Plugin 'shawncplus/phpcomplete.vim'
-Plugin 'm2mdas/phpcomplete-extended'
 
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pekepeke/titanium-vim'
