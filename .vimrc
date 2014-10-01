@@ -14,8 +14,8 @@ Plugin 'gmarik/Vundle.vim'
 " original repos on github
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-"Plugin 'scrooloose/nerdtree.git'
-Plugin 'Xuyuanp/git-nerdtree'
+Plugin 'scrooloose/nerdtree.git'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'widox/vim-buffer-explorer-plugin'
 
 Plugin 'altercation/vim-colors-solarized.git'
@@ -24,6 +24,7 @@ Plugin 'altercation/vim-colors-solarized.git'
 Plugin 'stephpy/vim-phpdoc'
 Plugin 'stephpy/vim-php-cs-fixer'
 Plugin 'shawncplus/phpcomplete.vim'
+Plugin 'adoy/vim-php-refactoring-toolbox'
 
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'pekepeke/titanium-vim'
