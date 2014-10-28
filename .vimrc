@@ -14,14 +14,15 @@ Plugin 'gmarik/Vundle.vim'
 " original repos on github
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/nerdtree.git'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+"Plugin 'scrooloose/nerdtree.git'
+"Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'Xuyuanp/git-nerdtree'
 Plugin 'widox/vim-buffer-explorer-plugin'
 
 Plugin 'altercation/vim-colors-solarized.git'
 
 " syntax plugins
-Plugin 'stephpy/vim-phpdoc'
+Plugin 'eInyzant/vim-phpdoc'
 Plugin 'stephpy/vim-php-cs-fixer'
 Plugin 'shawncplus/phpcomplete.vim'
 Plugin 'adoy/vim-php-refactoring-toolbox'
@@ -43,7 +44,7 @@ Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'matze/vim-move'
 Plugin 'scrooloose/nerdcommenter.git'
 Plugin 'mileszs/ack.vim'
-"Plugin 'majutsushi/tagbar'
+Plugin 'majutsushi/tagbar'
 Plugin 'gregsexton/MatchTag'
 Plugin 'henrik/vim-indexed-search'
 Plugin 'kshenoy/vim-signature'
@@ -177,6 +178,8 @@ Plugin 'Conque-Shell'
     " Yank from the cursor to the end of the line, to be consistent with C and D.
     nnoremap Y y$
 
+    let mapleader=","
+
     " Shortcuts
     " Change Working Directory to that of the current file
     "cmap cwd lcd %:p:h
@@ -192,9 +195,9 @@ Plugin 'Conque-Shell'
     " ShowMarks {
         let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         "toggle ShowMarks On and off
-        :map <C-F2> <ESC>\mt<CR><ESC>
+        map <C-F2> <ESC>\mt<CR><ESC>
         "Places the next available mark
-        :map <C-F3> <ESC>\mm<CR><ESC>
+        map <C-F3> <ESC>\mm<CR><ESC>
         " Don't leave on by default, use :ShowMarksOn to enable
         let g:showmarks_enable = 1
         " For marks a-z
@@ -226,20 +229,22 @@ Plugin 'Conque-Shell'
     " }
 
     " PhpDocs {
-        "source ~/.vim/plugin/php-doc.vim
         inoremap <C-o> <ESC>:call PhpDocSingle()<CR>i
         nnoremap <C-o> :call PhpDocSingle()<CR>
         vnoremap <C-o> :call PhpDocRange()<CR>
+        let g:pdv_cfg_File_Description = "This file is part of the GardenMedia Project"
         let g:pdv_cfg_Author = "Erwan INYZANT <erwan@garden-media.fr>"
-        let g:pdf_cfg_Copyrigth = "SAS1080 2014"
+        let g:pdv_cfg_License = "All right reserved Garden Media Studio VN Company Limited"
+        let g:pdv_cfg_Link = "http://www.garden-media.fr"
+
     " }
 
     " CtrlP {
-        nnoremap <C-f> :CtrlP ~/working_dir/current-repo/digitick<CR>
+        "nnoremap <C-f> :CtrlP ~/working_dir/current-repo/digitick<CR>
     "}
     " NERDCommenter {
-        :map <C-c> <leader>cc<CR>
-        :map <C-x> <leader>cu<CR>
+        map <C-c> <leader>cc<CR>
+        map <C-x> <leader>cu<CR>
     " }
 
     " airline {
@@ -262,7 +267,7 @@ Plugin 'Conque-Shell'
            \ 'passive_filetypes': [] }
 
         " Checker Options
-        let g:syntastic_php_checkers = ['php']
+        let g:syntastic_php_checkers = ['php', 'phpcs']
         "let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
         let g:syntastic_php_phpcs_post_args="--warning-severity=6"
         let g:syntastic_js_checkers = ['jshint']
@@ -284,7 +289,7 @@ Plugin 'Conque-Shell'
     " }
 
     " Ack {
-        let g:ackprg = "/usr/local/bin/ack --noenv --smart-case --type-add php=.inc,.mod --php --css --html --js --xml --flush -H --nocolor --nogroup --column"
+        let g:ackprg = "/usr/bin/ack-grep --noenv --smart-case --type-add php=.inc,.mod --php --css --html --js --xml --flush -H --nocolor --nogroup --column"
     " }
 
     " Fugitive {
