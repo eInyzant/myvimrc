@@ -38,9 +38,8 @@ filetype off                  " required
 " }
 
 " Vim UI {
-    "colo professional                 "   load a colorscheme
-    "color nuvola                    "load a colorscheme
-    color peachpuff
+    colo desert                 "   load a colorscheme
+    "color peachpuff
     
     set showmode                    " display the current mode
 
