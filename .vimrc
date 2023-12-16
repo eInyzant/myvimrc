@@ -8,60 +8,43 @@ call plug#begin('~/.vim/plugged')
 "
 " original repos on github
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'widox/vim-buffer-explorer-plugin'
+
+" Color Scheme
 Plug 'altercation/vim-colors-solarized'
+Plug 'morhetz/gruvbox'
+Plug 'sainnhe/everforest'
 
 " syntax plugins
-"Plug 'shawncplus/phpcomplete.vim'
-"Plug 'Rican7/php-doc-modded'
 Plug 'eInyzant/vim-phpdoc'
 Plug 'adoy/vim-php-refactoring-toolbox'
 Plug 'evidens/vim-twig'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
-"Plug 'ycm-core/YouCompleteMe', { 'do': 'python3 ./install.py --all'}
-"Plug 'ycm-core/lsp-examples', { 'do': 'python3 ./install.py --lang-php'}
-
-Plug 'Shougo/defx.nvim'
-Plug 't9md/vim-choosewin'
-Plug 'kristijanhusak/defx-git'
-
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'deoplete-plugins/deoplete-jedi'
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': '/home/erwan/.local/bin/composer.phar install' }
-
-
-Plug 'fs111/pydoc.vim'
-
+Plug 'dart-lang/dart-vim-plugin'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 Plug 'posva/vim-vue'
 
-" Linter + fixer :
-Plug 'dense-analysis/ale'
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/async.vim'
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'prabirshrestha/asyncomplete-lsp.vim'
-"Plug 'prabirshrestha/asyncomplete-flow.vim'
-"Plug 'yami-beta/asyncomplete-omni.vim'
-"Plug 'prabirshrestha/asyncomplete-ultisnips.vim'
-"Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script --working-dir=. parse-stubs'}
-"Plug 'ryanolsonx/vim-lsp-python'
 
-Plug 'tweekmonster/django-plus.vim'
+" File explorer
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': 'python3 -m chadtree deps'}
 
+" File/Buffer/Git search
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+Plug 'fs111/pydoc.vim'
+
+" Auto completion and more:
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'Exafunction/codeium.vim'
+
+" Utilitaires
+Plug 'mbbill/undotree'
 Plug 'ap/vim-css-color'
-
 Plug 'scrooloose/nerdcommenter'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
@@ -69,6 +52,7 @@ Plug 'henrik/vim-indexed-search'
 Plug 'kshenoy/vim-signature'
 Plug 'bling/vim-airline'
 Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'easymotion/vim-easymotion'
 
 
 " vim-scripts repos
@@ -79,9 +63,10 @@ Plug 'vim-scripts/CmdlineComplete'
 Plug 'vim-scripts/Conque-Shell'
 
 " For automatic ctags indexing
-Plug 'vim-scripts/DfrankUtil'
-Plug 'vim-scripts/vimprj'
-Plug 'vim-scripts/indexer.tar.gz'
+Plug 'ludovicchabant/vim-gutentags'
+"Plug 'vim-scripts/DfrankUtil'
+"Plug 'vim-scripts/vimprj'
+"Plug 'vim-scripts/indexer.tar.gz'
 
 
 " non github repos
@@ -146,10 +131,39 @@ filetype plugin indent on     " required!
 	"color peachpuff
 
 	"set background=light
-	let g:solarized_termcolors=256
+  let g:solarized_termcolors=256
+
+  " Gruvbox {
+    let g:gruvbox_contrast_light="hard"
+    let g:gruvbox_italic=1 
+  " }
+  "
+  " Everforest {
+    let g:everforest_background = 'hard'
+    let g:everforest_better_performance = 1
+    let g:everforest_enable_italic=1
+  " }
+
 	set background=light
-	colorscheme solarized
+  colorscheme everforest
+  "colorscheme gruvbox
 	set showmode                    " display the current mode
+
+  "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+  "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+  "(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+  if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
+    if (has("nvim"))
+      "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+    endif
+    "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+    "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+    " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+    if (has("termguicolors"))
+      set termguicolors
+    endif
+  endif
 
 	set cursorline                  " highlight current line
 	hi cursorline guibg=#EEEEEE     " highlight bg color of current line
@@ -182,7 +196,6 @@ filetype plugin indent on     " required!
 	set scrolloff=3                 " minimum lines to keep above and below cursor
 	set nofoldenable                " auto fold code
 	set gdefault                    " the /g flag on :s substitutions by default
-
 " }
 
 " Formatting {
@@ -233,252 +246,244 @@ endif
 
 " Plugins {
 
-	let php_sql_query=1 "Coloration des requetes SQL
-	let php_htmlInStrings=1 "Coloration des balises html
+  set grepprg=rg\ --vimgrep\ --smart-case\ --follow " use ripgrep instead of grep and can be used like : ":grep pizza"
+  " Search and replace :
+  " :grep "pizza"
+  " :cfdo %s/pizza/donut/g | update
 
-  " Ale {
-    let g:ale_set_loclist = 1
-    let g:ale_set_quickfix = 0
-    let g:ale_completion_enabled=0
-    let g:ale_lint_on_text_changed = 'normal'
-    let g:ale_lint_on_enter = 0
-    let g:ale_fix_on_save = 0
-    let g:ale_linters = {
-      \ 'javascript':['eslint'],
-      \ 'javascriptreact': ['javascript', 'jsx'],
-      \ 'zsh': 'sh',
-      \ 'vue': ['vue', 'javascript'],
-      \ 'python': ['pyflakes', 'pycodestyle', 'pylint', 'prospector'],
-      \ 'php': []
-    \}
-    " \ 'php': ['phpcbf', 'phpcs']
-    let g:ale_fixers = {
-      \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-      \   'javascript': ['prettier', 'eslint'],
-      \   'php': [],
-      \   'python': ['black', 'remove_trailing_lines', 'trim_whitespace'],
-    \}
-    "\   'python': ['autopep8', 'black', 'isort', 'yapf', 'add_blank_lines_for_python_control_statements'],
-    "phpcbf
-    let g:ale_python_pyflakes_executable = 'pyflakes3'
-    let g:ale_python_pylint_executable = 'pylint3'
-    let g:ale_python_pylint_options = '--rcfile $HOME/pylint.rc'
-    let g:ale_python_pycodestyle_options = '--max-line-length=100'
-  " }
+  let php_sql_query=1 "Coloration des requetes SQL
+  let php_htmlInStrings=1 "Coloration des balises html
 
-  " LANGUAGE SERVER PROTOCOL {
-    "au User lsp_setup call lsp#register_server({
-     "\ 'name': 'php-language-server',
-     "\ 'cmd': {server_info->['php', expand('~/.vim/plugged/php-language-server/bin/php-language-server.php')]},
-     "\ 'whitelist': ['php'],
-     "\ })
+  " Undotree {
+    nnoremap <leader>u :UndotreeToggle<CR>
+    let persistent_undo=1
+    if has("persistent_undo")
+      let target_path = expand('~/.vim/undodir')
 
-    if executable('css-languageserver')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'css-languageserver',
-        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
-        \ 'whitelist': ['css', 'less', 'sass'],
-        \ })
+      " create the directory and any parent directories
+      " if the location does not exist.
+      if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+      endif
+
+      let &undodir=target_path
+      set undofile
     endif
   " }
 
-  " Autosync completion {
-    "inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-    "inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
-    "set completeopt+=preview
-    "let g:asyncomplete_auto_popup = 1
-    "autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-    "au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#flow#get_source_options({
-    "\ 'name': 'flow',
-    "\ 'whitelist': ['javascript'],
-    "\ 'completor': function('asyncomplete#sources#flow#completor'),
-    "\ 'config': {
-    "\    'prefer_local': 1,
-    "\    'flowbin_path': expand('~/bin/flow'),
-    "\    'show_typeinfo': 1
-    "\  },
-    "\ }))
-
-    "if has('python3')
-      "let g:UltiSnipsExpandTrigger="<c-e>"
-      "call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-          "\ 'name': 'ultisnips',
-          "\ 'whitelist': ['*'],
-          "\ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-          "\ }))
-    "endif
+  " Codeium {
+    "imap <script><silent><nowait><expr> <C-g> codeium#Accept()
+    imap <leader>n   <Cmd>call codeium#CycleCompletions(1)<CR>
+    imap <leader>p   <Cmd>call codeium#CycleCompletions(-1)<CR>
+    imap <leader>x   <Cmd>call codeium#Clear()<CR>
+    set statusline+=\{…\}%3{codeium#GetStatusString()}
   " }
 
-  " YouCompleteMe {
-    set completeopt=preview,menuone
-    let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
-    let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-    let g:ycm_complete_in_comments = 1 " Completion in comments
-    let g:ycm_complete_in_strings = 1 " Completion in string
-    let g:ycm_python_binary_path = '/var/www/html/Localhost/la-belle-vie/venv/bin/python'
-    let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-    let g:ycm_collect_identifiers_from_comments_and_strings = 1
-    let g:ycm_add_preview_to_completeopt = 1
-    let g:ycm_autoclose_preview_window_after_completion = 0
-    let g:ycm_autoclose_preview_window_after_insertion = 1
-    let g:ycm_min_num_of_chars_for_completion = 2
-    let g:ycm_max_num_candidates = 50
-    let g:ycm_max_num_candidates_to_detail = 0
-    let g:ycm_max_num_identifier_candidates = 10
-    let g:ycm_auto_trigger = 1
-    let g:ycm_always_populate_location_list = 1
-
-    let g:ycm_key_list_stop_completion = ['<C-y>']
-
-    "source /home/erwan/.vim/plugged/lsp-examples/vimrc.generated
+  " Coc-flutter {
+    let g:dart_format_on_save = 1
+    let g:dartfmt_options = ['--fix', '--line-length 80']
+    nnoremap <leader>fe :CocCommand flutter.emulators <CR>
+    nnoremap <leader>fd :below new output:///flutter-dev <CR>
+    nnoremap <leader>fr :CocCommand flutter.run <CR>
   " }
 
-  " Deoplete {
-    let g:deoplete#enable_at_startup = 1
-    "let g:python3_host_prog = expand('/usr/bin/python3')
-    let g:neosnippet#enable_completed_snippet = 1
-    let g:deoplete#sources#jedi#show_docstring = 1
-    let g:autocomplete_flow#insert_paren_after_function = 0
-    call deoplete#custom#var('buffer', 'require_same_filetype', v:false)
-    call deoplete#custom#option('ignore_sources', {'php': ['omni']})
-    "call deoplete#custom#option('sources', {'php' : ['omni', 'phpactor', 'ultisnips', 'buffer']})
-    "call deoplete#custom#option('sources', {'python' : ['around', 'member', 'omni', 'buffer', 'defx', 'file', 'jedi', 'ultisnips']})
-    call deoplete#custom#option({
-      \ 'candidate_marks': ['a','z','e', 'r','p','o','i'],
-      \ 'max_list': 100,
-      \ 'num_processes': 4
-      \ })
-    call deoplete#custom#source('LanguageClient','mark', 'ℰ')
-    call deoplete#custom#source('omni',          'mark', '⌾')
-    call deoplete#custom#source('flow',          'mark', '⌁')
-    call deoplete#custom#source('TernJS',        'mark', '⌁')
-    call deoplete#custom#source('jedi',          'mark', '⌁')
-    call deoplete#custom#source('vim',           'mark', '⌁')
-    call deoplete#custom#source('ultisnips',     'mark', '⌘')
-    call deoplete#custom#source('around',        'mark', '↻')
-    call deoplete#custom#source('buffer',        'mark', 'ℬ')
-    call deoplete#custom#source('tmux-complete', 'mark', '⊶')
-    call deoplete#custom#source('syntax',        'mark', '♯')
-    call deoplete#custom#source('member',        'mark', '.')
+  " EasyMotion {
+    let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-    " register omni
-    call deoplete#custom#source('omni', 'functions', {
-    \ 'html': 'htmlcomplete#CompleteTags',
-    \ 'css' : 'csscomplete#CompleteCSS',
-    \ 'scss' : 'csscomplete#CompleteCSS',
-    \ 'sass' : 'csscomplete#CompleteCSS',
-    \ 'xml' : 'xmlcomplete#CompleteTags',
-    \ 'markdown' : 'htmlcomplete#CompleteTags',
-    \ })
+    " Jump to anywhere you want with minimal keystrokes, with just one key binding.
+    " `s{char}{label}`
+    nmap <leader>ss <Plug>(easymotion-overwin-f)
+    " or
+    " `s{char}{char}{label}`
+    " Need one more keystroke, but on average, it may be more comfortable.
+    "nmap s <Plug>(easymotion-overwin-f2)
 
-    call deoplete#custom#source('omni', 'input_patterns', {
-    \ 'html' : '<[^>]',
-    \ 'css'  : '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]',
-    \ 'scss' : '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]',
-    \ 'sass' : '^\s\+\w\+\|\w\+[):;]\?\s\+\w*\|[@!]',
-    \ 'xml'  : '<[^>]*',
-    \ 'md'   : '<[^>]*',
-    \})
-  "}
-  "
-  " Defx {
-    "let g:vimfiler_as_default_explorer = 1
-    map ,ex <ESC>:Defx -auto-cd -split=vertical -resume -toggle -winwidth=50 -columns=git:mark:indent:icon:filename:type<CR>
-    "call vimfiler#custom#profile('default', 'context', {
-          "\ 'safe' : 0,
-          "\ })
-	  call defx#custom#column('icon', {
-	      \ 'directory_icon': '▸',
-	      \ 'opened_icon': '▾',
-	      \ 'root_icon': ' ',
-	      \ })
-	  call defx#custom#column('mark', {
-	      \ 'readonly_icon': '✗',
-	      \ 'selected_icon': '✓',
-	      \ })
-      autocmd FileType defx call s:defx_my_settings()
-      function! s:defx_my_settings() abort
-        " Define mappings
-        nnoremap <silent><buffer><expr> <CR>
-        \ defx#do_action('open', 'choose')
-        nnoremap <silent><buffer><expr> c
-        \ defx#do_action('copy')
-        nnoremap <silent><buffer><expr> m
-        \ defx#do_action('move')
-        nnoremap <silent><buffer><expr> p
-        \ defx#do_action('paste')
-        nnoremap <silent><buffer><expr> l
-        \ defx#do_action('open')
-        nnoremap <silent><buffer><expr> E
-        \ defx#do_action('open', 'vsplit')
-        nnoremap <silent><buffer><expr> P
-        \ defx#do_action('preview')
-        nnoremap <silent><buffer><expr> o
-        \ defx#do_action('open_tree', 'toggle') . 'j'
-        nnoremap <silent><buffer><expr> h
-        \ defx#do_action('close_tree')
-        nnoremap <silent><buffer><expr> K
-        \ defx#do_action('new_directory')
-        nnoremap <silent><buffer><expr> N
-        \ defx#do_action('new_file')
-        nnoremap <silent><buffer><expr> M
-        \ defx#do_action('new_multiple_files')
-        nnoremap <silent><buffer><expr> C
-        \ defx#do_action('toggle_columns',
-        \                'mark:indent:icon:filename:type:size:time')
-        nnoremap <silent><buffer><expr> S
-        \ defx#do_action('toggle_sort', 'time')
-        nnoremap <silent><buffer><expr> d
-        \ defx#do_action('remove')
-        nnoremap <silent><buffer><expr> r
-        \ defx#do_action('rename')
-        nnoremap <silent><buffer><expr> !
-        \ defx#do_action('execute_command')
-        nnoremap <silent><buffer><expr> x
-        \ defx#do_action('execute_system')
-        nnoremap <silent><buffer><expr> yy
-        \ defx#do_action('yank_path')
-        nnoremap <silent><buffer><expr> .
-        \ defx#do_action('toggle_ignored_files')
-        nnoremap <silent><buffer><expr> ;
-        \ defx#do_action('repeat')
-        nnoremap <silent><buffer><expr> <BS>
-        \ defx#do_action('cd', ['..'])
-        nnoremap <silent><buffer><expr> ~
-        \ defx#do_action('cd')
-        nnoremap <silent><buffer><expr> q
-        \ defx#do_action('quit')
-        nnoremap <silent><buffer><expr> <Space>
-        \ defx#do_action('toggle_select') . 'j'
-        nnoremap <silent><buffer><expr> *
-        \ defx#do_action('toggle_select_all')
-        nnoremap <silent><buffer><expr> j
-        \ line('.') == line('$') ? 'gg' : 'j'
-        nnoremap <silent><buffer><expr> k
-        \ line('.') == 1 ? 'G' : 'k'
-        nnoremap <silent><buffer><expr> <C-l>
-        \ defx#do_action('redraw')
-        nnoremap <silent><buffer><expr> <C-g>
-        \ defx#do_action('print')
-        nnoremap <silent><buffer><expr> cd
-        \ defx#do_action('change_vim_cwd')
-      endfunction
+    " Turn on case-insensitive feature
+    let g:EasyMotion_smartcase = 1
+
+    " JK motions: Line motions
+    map <Leader>l <Plug>(easymotion-lineforward)
+    map <Leader>j <Plug>(easymotion-j)
+    map <Leader>k <Plug>(easymotion-k)
+    map <Leader>h <Plug>(easymotion-linebackward)
+
+    " <Leader>f{char} to move to {char}
+    map  <Leader>x <Plug>(easymotion-bd-f)
+    nmap <Leader>x <Plug>(easymotion-overwin-f)
+
+    " Move to word
+    map  <Leader>ww <Plug>(easymotion-bd-w)
+    nmap <Leader>ww <Plug>(easymotion-overwin-w)
   " }
-  " Defx Git {
-    call defx#custom#column('git', 'indicators', {
-      \ 'Modified'  : '✹',
-      \ 'Staged'    : '✚',
-      \ 'Untracked' : '✭',
-      \ 'Renamed'   : '➜',
-      \ 'Unmerged'  : '═',
-      \ 'Ignored'   : '☒',
-      \ 'Deleted'   : '✖',
-      \ 'Unknown'   : '?'
-    \ })
-    call defx#custom#column('git', 'column_length', 1)
 
+  " ChadTree {
+    map ,ex <ESC>:CHADopen<CR>
+    let g:chadtree_settings = {
+        \ 'options.follow': v:false,
+        \ }
+
+  " }
+
+  " Gutentags {
+    set statusline+=%{gutentags#statusline('[♨',']')}
+    "let g:gutentags_add_default_project_roots=['.git', '.hg', '.svn', '.bzr', '_darcs', '_darcs', '_FOSSIL_', '.fslckout']
+  " }
+
+  " Fzf {
+    " Initialize configuration dictionary
+    let g:fzf_vim = {}
+    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+    let g:fzf_vim.preview_window = ['down,60%', 'ctrl-/']
+    nnoremap <silent> <C-p> :Files<CR>
+    nnoremap <silent> <Leader>bf :Buffers<CR>
+    nnoremap <silent> <Leader>gr :RG<CR>
+  " }
+
+  " Coc {
+    " Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
+    " delays and poor user experience
+    set updatetime=300
+
+    " Always show the signcolumn, otherwise it would shift the text each time
+    " diagnostics appear/become resolved
+    set signcolumn=yes
+
+    " Use tab for trigger completion with characters ahead and navigate
+    " NOTE: There's always complete item selected by default, you may want to enable
+    " no select by `"suggest.noselect": true` in your configuration file
+    " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+    " other plugin before putting this into your config
+    inoremap <silent><expr> <TAB>
+          \ coc#pum#visible() ? coc#pum#next(1) :
+          \ CheckBackspace() ? "\<Tab>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+    " Make <CR> to accept selected completion item or notify coc.nvim to format
+    " <C-g>u breaks current undo, please make your own choice
+    inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                                  \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+    function! CheckBackspace() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <c-space> to trigger completion
+    if has('nvim')
+      inoremap <silent><expr> <c-space> coc#refresh()
+    else
+      inoremap <silent><expr> <c-@> coc#refresh()
+    endif
+
+    " Use `[g` and `]g` to navigate diagnostics
+    " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+    nmap <silent> [g <Plug>(coc-diagnostic-prev)
+    nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+    " GoTo code navigation
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)
+
+    " Use K to show documentation in preview window
+    nnoremap <silent> K :call ShowDocumentation()<CR>
+
+    function! ShowDocumentation()
+      if CocAction('hasProvider', 'hover')
+        call CocActionAsync('doHover')
+      else
+        call feedkeys('K', 'in')
+      endif
+    endfunction
+
+    " Highlight the symbol and its references when holding the cursor
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Symbol renaming
+    nmap <leader>rn <Plug>(coc-rename)
+
+    " Formatting selected code
+    xmap <leader>f  <Plug>(coc-format-selected)
+    nmap <leader>f  <Plug>(coc-format-selected)
+
+    augroup mygroup
+      autocmd!
+      " Setup formatexpr specified filetype(s)
+      autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+      " Update signature help on jump placeholder
+      autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    augroup end
+
+    " Applying code actions to the selected code block
+    " Example: `<leader>aap` for current paragraph
+    xmap <leader>a  <Plug>(coc-codeaction-selected)
+    nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+    " Remap keys for applying code actions at the cursor position
+    nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+    " Remap keys for apply code actions affect whole buffer
+    nmap <leader>as  <Plug>(coc-codeaction-source)
+    " Apply the most preferred quickfix action to fix diagnostic on the current line
+    nmap <leader>qf  <Plug>(coc-fix-current)
+
+    " Remap keys for applying refactor code actions
+    nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+    xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+    nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+    " Run the Code Lens action on the current line
+    nmap <leader>cl  <Plug>(coc-codelens-action)
+
+    " Map function and class text objects
+    " NOTE: Requires 'textDocument.documentSymbol' support from the language server
+    xmap if <Plug>(coc-funcobj-i)
+    omap if <Plug>(coc-funcobj-i)
+    xmap af <Plug>(coc-funcobj-a)
+    omap af <Plug>(coc-funcobj-a)
+    xmap ic <Plug>(coc-classobj-i)
+    omap ic <Plug>(coc-classobj-i)
+    xmap ac <Plug>(coc-classobj-a)
+    omap ac <Plug>(coc-classobj-a)
+
+    " Use CTRL-S for selections ranges
+    " Requires 'textDocument/selectionRange' support of language server
+    nmap <silent> <C-s> <Plug>(coc-range-select)
+    xmap <silent> <C-s> <Plug>(coc-range-select)
+
+    " Add `:Format` command to format current buffer
+    command! -nargs=0 Format :call CocActionAsync('format')
+
+    " Add `:Fold` command to fold current buffer
+    command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+    " Add `:OR` command for organize imports of the current buffer
+    command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.organizeImport')
+
+    " Add (Neo)Vim's native statusline support
+    " NOTE: Please see `:h coc-status` for integrations with external plugins that
+    " provide custom statusline: lightline.vim, vim-airline
+    set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+    " Mappings for CoCList
+    " Show all diagnostics
+    nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+    " Manage extensions
+    nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+    " Show commands
+    nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+    " Find symbol of current document
+    nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+    " Search workspace symbols
+    nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+    " Do default action for next item
+    nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+    " Do default action for previous item
+    nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+    " Resume latest coc list
+    nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+      
   " }
 
   " UtilSnip {
@@ -544,8 +549,7 @@ endif
     let g:airline_powerline_fonts=1
     set t_Co=256
     let g:airline#extensions#branch#enabled = 1
-    let g:airline#extensions#ale#enabled = 1
-
+    "let g:airline#extensions#ale#enabled = 1
 	" }
 
 
@@ -558,7 +562,7 @@ endif
 	" }
 
   " Git Gutter {
-    let g:gitgutter_max_signs = 9999
+    "let g:gitgutter_max_signs = 9999
   " }
 
 	" phpfolding {
@@ -601,7 +605,5 @@ map ,rs :e ~/.vimrc<CR>
 map ,ws :source ~/.vimrc<CR>
 map <C-g> g<C-]>
 map ,ta <ESC>:TagbarToggle<CR>
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-map <C-f> :ALEFix<CR>
+"nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+"nmap <silent> <C-j> <Plug>(ale_next_wrap)
